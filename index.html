@@ -333,27 +333,31 @@
             document.getElementById('calc-humidity-factor').textContent = `${humidityFactor.toFixed(4)}`;
             document.getElementById('calc-competitor-final').textContent = `R$ ${competitorAdjustedPrice.toFixed(2)}`;
 
-            // Determine winner and savings
+            // Determine winner and savings - SEMPRE usando o MENOR PREÇO como base para %
             const difference = Math.abs(navitasAdjustedPrice - competitorAdjustedPrice);
-            const percentageDifference = (difference / Math.max(navitasAdjustedPrice, competitorAdjustedPrice) * 100).toFixed(1);
+            const lowerPrice = Math.min(navitasAdjustedPrice, competitorAdjustedPrice);
+            const percentageDifference = (difference / lowerPrice * 100).toFixed(1);
 
             const winnerElement = document.getElementById('winner-announcement');
             const savingsElement = document.getElementById('savings-info');
             const recommendationElement = document.getElementById('recommendation');
 
             if (navitasAdjustedPrice < competitorAdjustedPrice) {
+                // NAVITAS VENCE - Navitas tem menor preço
                 winnerElement.innerHTML = '🎉 <span class="text-navitas-green">Navitas Brasil é a melhor opção!</span>';
                 savingsElement.innerHTML = `💰 Economia de <strong>R$ ${difference.toFixed(2)}</strong> por tonelada (${percentageDifference}% mais barato)`;
                 recommendationElement.className = 'mt-6 p-6 rounded-xl font-medium bg-green-100 border-2 border-navitas-green text-navitas-green';
                 recommendationElement.innerHTML = '✅ <strong>Recomendação:</strong> Escolha a Navitas Brasil para obter melhor rendimento da maravalha, controle superior de mastite, umidade garantida de 15% e economia significativa!';
             } else if (competitorAdjustedPrice < navitasAdjustedPrice) {
+                // CONCORRENTE VENCE - Concorrente tem menor preço
                 winnerElement.innerHTML = '📊 <span class="text-navitas-brown">Concorrente tem preço menor</span>';
-                savingsElement.innerHTML = `⚠️ Diferença de <strong>R$ ${difference.toFixed(2)}</strong> por tonelada (${percentageDifference}% mais caro)`;
+                savingsElement.innerHTML = `⚠️ Diferença de <strong>R$ ${difference.toFixed(2)}</strong> por tonelada (${percentageDifference}% mais barato)`;
                 recommendationElement.className = 'mt-6 p-6 rounded-xl font-medium bg-yellow-100 border-2 border-yellow-500 text-yellow-700';
                 recommendationElement.innerHTML = '💡 <strong>Considere:</strong> Embora o preço seja maior, a Navitas Brasil oferece controle rigoroso de umidade (15%), melhor rendimento da maravalha, prevenção eficaz de mastite e localização estratégica!';
             } else {
+                // EMPATE - Preços iguais
                 winnerElement.innerHTML = '⚖️ <span class="text-gray-600">Preços equivalentes</span>';
-                savingsElement.innerHTML = '📊 Ambas as opções têm custo-benefício similar';
+                savingsElement.innerHTML = `📊 Ambas as opções têm custo-benefício similar (0% de diferença)`;
                 recommendationElement.className = 'mt-6 p-6 rounded-xl font-medium bg-blue-100 border-2 border-blue-500 text-blue-700';
                 recommendationElement.innerHTML = '🤝 <strong>Decisão:</strong> Com preços similares, escolha a Navitas Brasil pelo controle superior de umidade, maior rendimento da maravalha, prevenção de mastite e confiabilidade comprovada!';
             }
@@ -378,5 +382,5 @@
             });
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e3925a460b23ac',t:'MTc1NTAzOTQ0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e3ac2cf210f502',t:'MTc1NTA0MDUwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
