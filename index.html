@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maravalha - Custo Benefício - Calculadora Navitas Brasil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navitas-green': '#2d5016',
+                        'navitas-light-green': '#4a7c23',
+                        'navitas-brown': '#8b4513',
+                        'navitas-light-brown': '#a0522d'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 50%, #8b4513 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .result-animation {
+            animation: slideUp 0.5s ease-out;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                "Maravalha - Custo Benefício"
+            </h1>
+            <p class="text-xl text-green-100 font-medium">
+                Calculadora Navitas Brasil
+            </p>
+            <div class="w-24 h-1 bg-white mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <!-- Calculator Container -->
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-white rounded-3xl card-shadow overflow-hidden">
+                <div class="p-8 md:p-12">
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                        
+                        <!-- Navitas Brasil Side -->
+                        <div class="space-y-6">
+                            <div class="text-center mb-8">
+                                <h2 class="text-2xl font-bold text-navitas-green mb-2">
+                                    🏆 Navitas Brasil
+                                </h2>
+                                <div class="w-16 h-1 bg-navitas-green mx-auto rounded-full"></div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Fornecedor</label>
+                                    <input type="text" value="Navitas Brasil" readonly 
+                                           class="w-full p-4 bg-green-50 border-2 border-navitas-light-green rounded-xl font-medium text-navitas-green">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Localização</label>
+                                    <input type="text" value="Pedra do Indaiá - MG" readonly 
+                                           class="w-full p-4 bg-green-50 border-2 border-navitas-light-green rounded-xl font-medium text-navitas-green">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Umidade máxima da Maravalha</label>
+                                    <input type="text" value="15%" readonly 
+                                           class="w-full p-4 bg-green-50 border-2 border-navitas-light-green rounded-xl font-medium text-navitas-green">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Valor da Tonelada *</label>
+                                    <input type="number" id="navitas-price" placeholder="R$ 0,00" step="0.01" required
+                                           class="w-full p-4 border-2 border-gray-300 rounded-xl focus:border-navitas-green focus:ring-2 focus:ring-navitas-green focus:ring-opacity-20 transition-all duration-200">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Frete por Tonelada</label>
+                                    <input type="text" value="Frete Incluso" readonly 
+                                           class="w-full p-4 bg-green-50 border-2 border-navitas-light-green rounded-xl font-medium text-navitas-green">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Competitor Side -->
+                        <div class="space-y-6">
+                            <div class="text-center mb-8">
+                                <h2 class="text-2xl font-bold text-navitas-brown mb-2">
+                                    🏭 Concorrente "X"
+                                </h2>
+                                <div class="w-16 h-1 bg-navitas-brown mx-auto rounded-full"></div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Fornecedor</label>
+                                    <input type="text" value="Concorrente &quot;X&quot;" readonly 
+                                           class="w-full p-4 bg-orange-50 border-2 border-navitas-light-brown rounded-xl font-medium text-navitas-brown">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Localização *</label>
+                                    <input type="text" id="competitor-location" placeholder="Digite a localização" required
+                                           class="w-full p-4 border-2 border-gray-300 rounded-xl focus:border-navitas-brown focus:ring-2 focus:ring-navitas-brown focus:ring-opacity-20 transition-all duration-200">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Umidade máxima da Maravalha *</label>
+                                    <input type="number" id="competitor-humidity" placeholder="%" step="0.1" required
+                                           class="w-full p-4 border-2 border-gray-300 rounded-xl focus:border-navitas-brown focus:ring-2 focus:ring-navitas-brown focus:ring-opacity-20 transition-all duration-200">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Valor da Tonelada *</label>
+                                    <input type="number" id="competitor-price" placeholder="R$ 0,00" step="0.01" required
+                                           class="w-full p-4 border-2 border-gray-300 rounded-xl focus:border-navitas-brown focus:ring-2 focus:ring-navitas-brown focus:ring-opacity-20 transition-all duration-200">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Frete por Tonelada</label>
+                                    <input type="number" id="competitor-freight" placeholder="R$ 0,00" step="0.01"
+                                           class="w-full p-4 border-2 border-gray-300 rounded-xl focus:border-navitas-brown focus:ring-2 focus:ring-navitas-brown focus:ring-opacity-20 transition-all duration-200">
+                                    <p class="text-xs text-gray-600 mt-1">* Se for incluso, escreva "0"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <div class="text-center mt-12">
+                        <button onclick="calculateCostBenefit()" 
+                                class="bg-gradient-to-r from-navitas-green to-navitas-brown text-white font-bold py-4 px-12 rounded-2xl text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🧮 Calcular Custo-Benefício
+                        </button>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="results" class="mt-12 hidden">
+                        <div class="bg-gradient-to-r from-green-50 to-orange-50 rounded-2xl p-8 result-animation">
+                            <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">
+                                📊 Análise de Custo-Benefício
+                            </h3>
+                            
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div class="bg-white rounded-xl p-6 border-l-4 border-navitas-green">
+                                    <h4 class="font-bold text-navitas-green text-lg mb-4">🏆 Navitas Brasil</h4>
+                                    <div class="space-y-2">
+                                        <p><span class="font-semibold">Preço por tonelada:</span> <span id="navitas-display-price"></span></p>
+                                        <p><span class="font-semibold">Frete por tonelada:</span> Incluso</p>
+                                        <p><span class="font-semibold">Umidade garantida:</span> 15%</p>
+                                        <p><span class="font-semibold">Valor total ajustado:</span> <span id="navitas-adjusted-price"></span></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white rounded-xl p-6 border-l-4 border-navitas-brown">
+                                    <h4 class="font-bold text-navitas-brown text-lg mb-4">🏭 Concorrente</h4>
+                                    <div class="space-y-2">
+                                        <p><span class="font-semibold">Preço por tonelada:</span> <span id="competitor-display-price"></span></p>
+                                        <p><span class="font-semibold">Frete por tonelada:</span> <span id="competitor-display-freight"></span></p>
+                                        <p><span class="font-semibold">Umidade declarada:</span> <span id="competitor-display-humidity"></span></p>
+                                        <p><span class="font-semibold">Valor total ajustado:</span> <span id="competitor-adjusted-price"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Memory of Calculation -->
+                            <div class="mt-8 bg-white rounded-xl p-6 border-2 border-gray-200">
+                                <h4 class="text-xl font-bold text-gray-800 mb-6 text-center">
+                                    🧮 Memória de Cálculo
+                                </h4>
+                                
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="space-y-3">
+                                        <h5 class="font-bold text-navitas-green text-lg">📋 Dados Navitas Brasil:</h5>
+                                        <div class="bg-green-50 p-4 rounded-lg space-y-2 text-sm">
+                                            <p>• Preço original: <span id="calc-navitas-original"></span></p>
+                                            <p>• Frete: <span id="calc-navitas-freight"></span></p>
+                                            <p>• Umidade: 15%</p>
+                                            <p>• Matéria seca: 85%</p>
+                                            <p>• Fator de ajuste: 1,00</p>
+                                            <p class="font-semibold border-t pt-2">• Valor total ajustado: <span id="calc-navitas-final"></span></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="space-y-3">
+                                        <h5 class="font-bold text-navitas-brown text-lg">📋 Dados Concorrente:</h5>
+                                        <div class="bg-orange-50 p-4 rounded-lg space-y-2 text-sm">
+                                            <p>• Preço original: <span id="calc-competitor-original"></span></p>
+                                            <p>• Frete: <span id="calc-competitor-freight"></span></p>
+                                            <p>• Umidade: <span id="calc-competitor-humidity"></span></p>
+                                            <p>• Matéria seca: <span id="calc-competitor-dry-matter"></span></p>
+                                            <p>• Fator de ajuste: <span id="calc-humidity-factor"></span></p>
+                                            <p class="font-semibold border-t pt-2">• Valor total ajustado: <span id="calc-competitor-final"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 bg-gray-50 p-4 rounded-lg">
+                                    <h6 class="font-bold text-gray-700 mb-3">🔢 Fórmula de Cálculo:</h6>
+                                    <div class="text-sm space-y-2">
+                                        <p><strong>Fator de Umidade:</strong> (100 - Umidade Navitas) ÷ (100 - Umidade Concorrente)</p>
+                                        <p><strong>Valor Total Navitas:</strong> (Preço + Frete) × 1,00</p>
+                                        <p><strong>Valor Total Concorrente:</strong> (Preço + Frete) × Fator de Umidade</p>
+                                        <p class="text-xs text-gray-600 mt-3">
+                                            * O ajuste considera que menor umidade garante maior rendimento da maravalha, 
+                                            melhor controle de mastite e maior concentração de matéria seca útil.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Technical Benefits Section -->
+                            <div class="mt-8 bg-white rounded-xl p-6 border-2 border-navitas-green">
+                                <h4 class="text-xl font-bold text-navitas-green mb-4 text-center">
+                                    🎯 Vantagens Técnicas da Navitas Brasil
+                                </h4>
+                                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                                        <div class="text-2xl mb-2">💧</div>
+                                        <h5 class="font-bold text-navitas-green mb-2">Controle de Umidade</h5>
+                                        <p>Umidade máxima garantida de 15%, evitando proliferação de fungos e bactérias</p>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                                        <div class="text-2xl mb-2">📈</div>
+                                        <h5 class="font-bold text-navitas-green mb-2">Maior Rendimento</h5>
+                                        <p>Maravalha com baixa umidade oferece maior concentração de matéria seca útil</p>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                                        <div class="text-2xl mb-2">🛡️</div>
+                                        <h5 class="font-bold text-navitas-green mb-2">Prevenção de Mastite</h5>
+                                        <p>Controle rigoroso de umidade reduz drasticamente o risco de mastite no rebanho</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 text-center">
+                                <div id="winner-announcement" class="text-2xl font-bold mb-4"></div>
+                                <div id="savings-info" class="text-lg"></div>
+                                <div id="recommendation" class="mt-6 p-6 rounded-xl font-medium"></div>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-white">
+            <p class="text-sm opacity-80">
+                © 2024 Navitas Brasil - Calculadora Maravalha - Custo-Benefício
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function calculateCostBenefit() {
+            // Get input values
+            const navitasPrice = parseFloat(document.getElementById('navitas-price').value);
+            const navitasFreight = 0; // Frete sempre incluso para Navitas
+            const competitorLocation = document.getElementById('competitor-location').value.trim();
+            const competitorHumidity = parseFloat(document.getElementById('competitor-humidity').value);
+            const competitorPrice = parseFloat(document.getElementById('competitor-price').value);
+            const competitorFreight = parseFloat(document.getElementById('competitor-freight').value) || 0;
+
+            // Validation
+            if (!navitasPrice || !competitorLocation || !competitorHumidity || !competitorPrice) {
+                alert('Por favor, preencha todos os campos obrigatórios (*)');
+                return;
+            }
+
+            if (competitorHumidity < 0 || competitorHumidity > 100) {
+                alert('A umidade deve estar entre 0% e 100%');
+                return;
+            }
+
+            // Calculate total prices including freight
+            const navitasTotal = navitasPrice + navitasFreight;
+            const competitorTotal = competitorPrice + competitorFreight;
+
+            // Calculate adjusted prices based on humidity
+            // Lower humidity = better quality = higher effective value
+            const navitasHumidity = 15;
+            const humidityFactor = (100 - navitasHumidity) / (100 - competitorHumidity);
+            
+            const navitasAdjustedPrice = navitasTotal;
+            const competitorAdjustedPrice = competitorTotal * humidityFactor;
+
+            // Display results
+            document.getElementById('navitas-display-price').textContent = `R$ ${navitasPrice.toFixed(2)}`;
+            document.getElementById('competitor-display-price').textContent = `R$ ${competitorPrice.toFixed(2)}`;
+            document.getElementById('competitor-display-freight').textContent = `R$ ${competitorFreight.toFixed(2)}`;
+            document.getElementById('competitor-display-humidity').textContent = `${competitorHumidity}%`;
+            document.getElementById('navitas-adjusted-price').textContent = `R$ ${navitasAdjustedPrice.toFixed(2)}`;
+            document.getElementById('competitor-adjusted-price').textContent = `R$ ${competitorAdjustedPrice.toFixed(2)}`;
+
+            // Display calculation memory
+            document.getElementById('calc-navitas-original').textContent = `R$ ${navitasPrice.toFixed(2)}`;
+            document.getElementById('calc-navitas-freight').textContent = `Incluso`;
+            document.getElementById('calc-navitas-final').textContent = `R$ ${navitasAdjustedPrice.toFixed(2)}`;
+            document.getElementById('calc-competitor-original').textContent = `R$ ${competitorPrice.toFixed(2)}`;
+            document.getElementById('calc-competitor-freight').textContent = `R$ ${competitorFreight.toFixed(2)}`;
+            document.getElementById('calc-competitor-humidity').textContent = `${competitorHumidity}%`;
+            document.getElementById('calc-competitor-dry-matter').textContent = `${(100 - competitorHumidity).toFixed(1)}%`;
+            document.getElementById('calc-humidity-factor').textContent = `${humidityFactor.toFixed(4)}`;
+            document.getElementById('calc-competitor-final').textContent = `R$ ${competitorAdjustedPrice.toFixed(2)}`;
+
+            // Determine winner and savings
+            const difference = Math.abs(navitasAdjustedPrice - competitorAdjustedPrice);
+            const percentageDifference = (difference / Math.max(navitasAdjustedPrice, competitorAdjustedPrice) * 100).toFixed(1);
+
+            const winnerElement = document.getElementById('winner-announcement');
+            const savingsElement = document.getElementById('savings-info');
+            const recommendationElement = document.getElementById('recommendation');
+
+            if (navitasAdjustedPrice < competitorAdjustedPrice) {
+                winnerElement.innerHTML = '🎉 <span class="text-navitas-green">Navitas Brasil é a melhor opção!</span>';
+                savingsElement.innerHTML = `💰 Economia de <strong>R$ ${difference.toFixed(2)}</strong> por tonelada (${percentageDifference}% mais barato)`;
+                recommendationElement.className = 'mt-6 p-6 rounded-xl font-medium bg-green-100 border-2 border-navitas-green text-navitas-green';
+                recommendationElement.innerHTML = '✅ <strong>Recomendação:</strong> Escolha a Navitas Brasil para obter melhor rendimento da maravalha, controle superior de mastite, umidade garantida de 15% e economia significativa!';
+            } else if (competitorAdjustedPrice < navitasAdjustedPrice) {
+                winnerElement.innerHTML = '📊 <span class="text-navitas-brown">Concorrente tem preço menor</span>';
+                savingsElement.innerHTML = `⚠️ Diferença de <strong>R$ ${difference.toFixed(2)}</strong> por tonelada (${percentageDifference}% mais caro)`;
+                recommendationElement.className = 'mt-6 p-6 rounded-xl font-medium bg-yellow-100 border-2 border-yellow-500 text-yellow-700';
+                recommendationElement.innerHTML = '💡 <strong>Considere:</strong> Embora o preço seja maior, a Navitas Brasil oferece controle rigoroso de umidade (15%), melhor rendimento da maravalha, prevenção eficaz de mastite e localização estratégica!';
+            } else {
+                winnerElement.innerHTML = '⚖️ <span class="text-gray-600">Preços equivalentes</span>';
+                savingsElement.innerHTML = '📊 Ambas as opções têm custo-benefício similar';
+                recommendationElement.className = 'mt-6 p-6 rounded-xl font-medium bg-blue-100 border-2 border-blue-500 text-blue-700';
+                recommendationElement.innerHTML = '🤝 <strong>Decisão:</strong> Com preços similares, escolha a Navitas Brasil pelo controle superior de umidade, maior rendimento da maravalha, prevenção de mastite e confiabilidade comprovada!';
+            }
+
+            // Show results with animation
+            const resultsElement = document.getElementById('results');
+            resultsElement.classList.remove('hidden');
+            resultsElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+
+
+        // Add enter key support for inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]:not([readonly])');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        calculateCostBenefit();
+                    }
+                });
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e36343665f1cfb',t:'MTc1NTAzNzUxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
